@@ -36,7 +36,7 @@ print(type(result))
 pprint.pprint(result.keys())
 print(len(result))
 
-#pprint.pprint(my_data[18]['attendees'])
+#pprint.pprint(my_data[-1]['attendees'])
 
 '''for x in my_data:
     if 'attendees' not in x.keys():
@@ -52,14 +52,20 @@ print(len(result))
 
 
 def mail_event_list(email):
-    try:
+    #try:
         for x in my_data:
             if 'attendees' not in x.keys():
                 pass
             elif x['attendees'][0]['email'] == email:
-                pprint.pprint(x)
-                print(len(x))
-    except:
-        print('we gon an error')
+                #pprint.pprint(x['created'])
+                #print(x.keys())
+                #pprint.pprint(x)
+                print(len(x), type(x), x.keys())
+                if 'description' not in x.keys():
+                    print('no attendees')
+                else:
+                    pprint.pprint(x['description'])
+    #except:
+        #print('we got an error')
 
-mail_event_list('k.quintos@irri.org')
+mail_event_list('n.fonseca@irri.org')
