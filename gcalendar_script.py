@@ -25,16 +25,41 @@ result = service.events().list(calendarId=calendar_id, timeZone="Asia/Manila").e
 my_data = result["items"]
 
 
-pprint.pprint(my_data[100])
+
+pprint.pprint(my_data[100]['attendees'][0]['email'])
+
+#pprint.pprint(len(my_data))
+#print(type(my_data))
+
+#pprint.pprint(result)
+print(type(result))
+pprint.pprint(result.keys())
+print(len(result))
+
+#pprint.pprint(my_data[18]['attendees'])
+
+'''for x in my_data:
+    if 'attendees' not in x.keys():
+        continue
+    elif x['attendees'][0]['email'] == 'l.delosreyes@irri.org':
+        pprint.pprint(x)
+'''
 
 
+'''for x in my_data:
+    if x['attendees'][0]['email'] == 'l.delosreyes@irri.org':
+        print(len(x))'''
 
 
-for x in my_data:
-    if my_data[x]['attendees']['email'] == 'l.delosreyes@irri.org':
-        print(x['description'])
+def mail_event_list(email):
+    try:
+        for x in my_data:
+            if 'attendees' not in x.keys():
+                pass
+            elif x['attendees'][0]['email'] == email:
+                pprint.pprint(x)
+                print(len(x))
+    except:
+        print('we gon an error')
 
-"""    for i in x['attendees']:
-        if i['email'] == 'l.delosreyes@irri.org':
-            print(my_data[x]['description'])"""
-             
+mail_event_list('k.quintos@irri.org')
