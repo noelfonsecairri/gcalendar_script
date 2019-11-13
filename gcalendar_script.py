@@ -16,42 +16,48 @@ credentials = pickle.load(open("token.pkl", "rb"))
 service = build("calendar", "v3", credentials=credentials)
 
 result = service.calendarList().list().execute()
-# pprint.pprint(result['items'][0])
 
-calendar_id = result["items"][0]["id"]
+
+#pprint.pprint(result['items'][0])
+pprint.pprint(result['items'][0]['id'])
+pprint.pprint(result['items'][1]['id'])
+#print(result.keys())
+
+
+#getting data from single calendar ID
+calendar_id = result["items"][1]["id"]
 result = service.events().list(calendarId=calendar_id, timeZone="Asia/Manila").execute()
-
-
-my_data = result["items"]
-
-
-
-pprint.pprint(my_data[100]['attendees'][0]['email'])
-
-#pprint.pprint(len(my_data))
-#print(type(my_data))
-
 #pprint.pprint(result)
-print(type(result))
-pprint.pprint(result.keys())
-print(len(result))
+print(result.keys())
+print(result['items'][-1].values())
+last_item = result['items'][-1].items()
 
-#pprint.pprint(my_data[-1]['attendees'])
+print(result['items'][-1]['id'])
 
-'''for x in my_data:
-    if 'attendees' not in x.keys():
-        continue
-    elif x['attendees'][0]['email'] == 'l.delosreyes@irri.org':
-        pprint.pprint(x)
+for x in last_item:
+    print(x)
+
+
+
+#get data from multiple calendar IDs
+
+'''my_data = result['items']
+
+for x in my_data:
+    for i in x[0]['id']:
+        if i == 'njfonseca@gmail.com':
+            calendar_id = 
 '''
 
+########################
 
-'''for x in my_data:
-    if x['attendees'][0]['email'] == 'l.delosreyes@irri.org':
-        print(len(x))'''
+#my_data = result["items"]
 
+'''pprint.pprint(result)
+pprint.pprint(len(result))
+pprint.pprint(type(result))'''
 
-def mail_event_list(email):
+'''def mail_event_list(email):
     #try:
         for x in my_data:
             if 'attendees' not in x.keys():
@@ -60,12 +66,9 @@ def mail_event_list(email):
                 #pprint.pprint(x['created'])
                 #print(x.keys())
                 #pprint.pprint(x)
-                print(len(x), type(x), x.keys())
-                if 'description' not in x.keys():
-                    print('no attendees')
-                else:
-                    pprint.pprint(x['description'])
+                print(x)
+
     #except:
         #print('we got an error')
 
-mail_event_list('n.fonseca@irri.org')
+mail_event_list('n.fonseca@irri.org')'''
