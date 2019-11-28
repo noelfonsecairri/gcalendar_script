@@ -2,3 +2,4 @@ irri_google_calendar_credentials.json
 /venv
 token.pkl
 token.pickle
+calendar_credentials.json

@@ -1,23 +1,28 @@
 #!/usr/bin/env python3
 
 import pprint, pickle, json
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
+from apiclient import discovery
+from google.oauth2 import service_account
 
-scopes = ["https://www.googleapis.com/auth/calendar"]
-flow = InstalledAppFlow.from_client_secrets_file(
-    "irri_google_calendar_credentials.json", scopes=scopes
-)
-credentials = flow.run_local_server()
+scopes = ["https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events" ]
+service_account_file = 'calendar_credentials.json'
 
 
-pickle.dump(credentials, open("token.pkl", "wb"))
-credentials = pickle.load(open("token.pkl", "rb"))
-service = build("calendar", "v3", credentials=credentials)
+credentials = service_account.Credentials.from_service_account_file(
+        service_account_file, scopes=scopes)
 
-result = service.calendarList().list().execute()
+#pickle.dump(credentials, open("token.pkl", "wb"))
+#credentials = pickle.load(open("token.pkl", "rb"))
+
+calendar_service = discovery.build("calendar", "v3", credentials=credentials)
+
+#result = calendar_service.calendarList().list().execute()
+result2 = calendar_service.events().get().execute()
 
 
+pprint.pprint(result)
+
+'''
 #pprint.pprint(result['items'][0])
 pprint.pprint(result['items'][0]['id'])
 pprint.pprint(result['items'][1]['id'])
@@ -35,7 +40,7 @@ last_item = result['items'][-1].items()
 print(result['items'][-1]['id'])
 
 for x in last_item:
-    print(x)
+    print(x)'''
 
 
 
